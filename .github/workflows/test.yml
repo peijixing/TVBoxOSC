@@ -24,6 +24,13 @@ jobs:
           for file in `find ~ -name "*.apk" -print`; do
             mv "$file" ${{ github.workspace }}/apk/
           done
+      - name: Upload to release
+        uses: peijixing/TVBoxOSC@master
+        with:
+          args:  ${{ github.workspace }}/apk/* application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
         with:
